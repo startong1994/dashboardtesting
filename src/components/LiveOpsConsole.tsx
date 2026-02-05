@@ -234,7 +234,7 @@ export default function LiveOpsConsole() {
   return (
     <div className="grid gap-6 lg:grid-cols-[320px,minmax(0,1fr)]">
       <aside
-        className={`glass-card flex h-[80vh] min-h-0 flex-col p-4 sm:p-5 ${
+        className={`glass-card flex h-[86vh] min-h-0 flex-col p-4 sm:p-5 ${
           mobilePanel === 'list' ? 'flex' : 'hidden'
         } lg:flex`}
       >
@@ -295,7 +295,7 @@ export default function LiveOpsConsole() {
       </aside>
 
       <section
-        className={`glass-card flex h-[80vh] min-h-0 flex-col gap-4 p-4 sm:p-6 ${
+        className={`glass-card flex h-[86vh] min-h-0 flex-col gap-3 p-4 sm:p-6 ${
           mobilePanel === 'chat' ? 'flex' : 'hidden'
         } lg:flex`}
       >
@@ -359,7 +359,7 @@ export default function LiveOpsConsole() {
               </button>
             </div>
 
-            <div className="mt-2 flex min-h-0 flex-1 flex-col gap-4">
+            <div className="mt-1 flex min-h-0 flex-1 flex-col gap-3">
               <div className="flex items-center justify-between text-xs uppercase tracking-[0.24em] text-slate-500">
                 <span>Live Transcript</span>
                 <span>{formatTime(selectedCall.updatedAt)}</span>
