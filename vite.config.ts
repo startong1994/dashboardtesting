@@ -4,7 +4,4 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: "/dashboard-test/",
   plugins: [react()],
-  server: {
-    port: 5173
-  }
 })
