@@ -301,73 +301,72 @@ export default function LiveOpsConsole() {
       >
         {selectedCall ? (
           <>
-            <button
-              type="button"
-              onClick={() => setMobilePanel('list')}
-              className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700 lg:hidden"
-            >
-              Back to calls
-            </button>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Caller Phone (E.164)</p>
-                <h3 className="mt-1 font-mono text-xl text-slate-900">{selectedCall.phoneE164}</h3>
-                <p className="mt-1 text-xs text-slate-500">Strict phone transparent policy enabled.</p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <span
-                  className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium ${
-                    statusMeta[selectedCall.status].classes
-                  }`}
-                >
-                  {statusMeta[selectedCall.status].icon}
-                  {statusMeta[selectedCall.status].label}
-                </span>
-                {selectedCall.reason && (
-                  <span className="soft-chip">
-                    <ShieldAlert className="h-3.5 w-3.5" />
-                    {selectedCall.reason}
+            <div className="flex max-h-[22vh] flex-col gap-3 overflow-y-auto lg:max-h-none lg:overflow-visible">
+              <button
+                type="button"
+                onClick={() => setMobilePanel('list')}
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-700 lg:hidden"
+              >
+                Back to calls
+              </button>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h3 className="font-mono text-xl text-slate-900">{selectedCall.phoneE164}</h3>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span
+                    className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium ${
+                      statusMeta[selectedCall.status].classes
+                    }`}
+                  >
+                    {statusMeta[selectedCall.status].icon}
+                    {statusMeta[selectedCall.status].label}
                   </span>
-                )}
+                  {selectedCall.reason && (
+                    <span className="soft-chip">
+                      <ShieldAlert className="h-3.5 w-3.5" />
+                      {selectedCall.reason}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleTakeOver(selectedCall.callId)}
+                  className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-soft-xl transition hover:-translate-y-0.5"
+                >
+                  <UserRound className="h-4 w-4" />
+                  Take Over
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCallStatus(selectedCall.callId, 'watch', 'Manual watch flag')}
+                  className="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700"
+                >
+                  <AlertTriangle className="h-4 w-4" />
+                  Mark Watch
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCallStatus(selectedCall.callId, 'blocked', 'Manually blocked by owner')}
+                  className="inline-flex items-center gap-2 rounded-full border border-rose-300 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700"
+                >
+                  <Ban className="h-4 w-4" />
+                  Block Caller
+                </button>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => handleTakeOver(selectedCall.callId)}
-                className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-soft-xl transition hover:-translate-y-0.5"
-              >
-                <UserRound className="h-4 w-4" />
-                Take Over
-              </button>
-              <button
-                type="button"
-                onClick={() => setCallStatus(selectedCall.callId, 'watch', 'Manual watch flag')}
-                className="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700"
-              >
-                <AlertTriangle className="h-4 w-4" />
-                Mark Watch
-              </button>
-              <button
-                type="button"
-                onClick={() => setCallStatus(selectedCall.callId, 'blocked', 'Manually blocked by owner')}
-                className="inline-flex items-center gap-2 rounded-full border border-rose-300 bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700"
-              >
-                <Ban className="h-4 w-4" />
-                Block Caller
-              </button>
-            </div>
-
-            <div className="mt-1 flex min-h-0 flex-1 flex-col gap-3">
-              <div className="flex items-center justify-between text-xs uppercase tracking-[0.24em] text-slate-500">
-                <span>Live Transcript</span>
+            <div className="flex min-h-0 flex-1 flex-col gap-3">
+              <div className="flex items-center justify-end text-xs uppercase tracking-[0.24em] text-slate-500">
                 <span>{formatTime(selectedCall.updatedAt)}</span>
               </div>
               <div
                 ref={transcriptRef}
                 onScroll={handleTranscriptScroll}
-                className="min-h-0 flex-[3_1_0%] space-y-3 overflow-y-auto pr-2 lg:flex-1"
+                className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-2"
               >
                 {selectedCall.transcript.length === 0 && (
                   <div className="rounded-2xl border border-dashed border-slate-200 p-4 text-sm text-slate-500">
