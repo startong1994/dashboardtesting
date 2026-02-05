@@ -367,7 +367,7 @@ export default function LiveOpsConsole() {
               <div
                 ref={transcriptRef}
                 onScroll={handleTranscriptScroll}
-                className="min-h-0 flex-1 space-y-3 overflow-y-auto pr-2"
+                className="min-h-0 flex-[3_1_0%] space-y-3 overflow-y-auto pr-2 lg:flex-1"
               >
                 {selectedCall.transcript.length === 0 && (
                   <div className="rounded-2xl border border-dashed border-slate-200 p-4 text-sm text-slate-500">
